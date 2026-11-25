@@ -74,6 +74,98 @@ Client-server chat applications are versatile tools that facilitate real-time co
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
 
 
+#server:
+
+```
+import socket
+
+s = socket.socket()
+s.bind(('localhost', 8000))
+s.listen(5)
+
+print("Server waiting for client...")
+
+c, addr = s.accept()
+print("Client connected:", addr)
+
+while True:
+    msg = input("Server: ")
+
+    c.send(msg.encode())
+
+    if msg.lower() == "exit":
+        break
+
+    data = c.recv(1024).decode()
+
+    if not data or data.lower() == "exit":
+        print("Client disconnected")
+        break
+
+    print("Client:", data)
+
+c.close()
+s.close()
+
+```
+
+```
+
+import socket
+
+s = socket.socket()
+s.connect(('localhost', 8000))
+
+print("Connected to server")
+
+while True:
+    data = s.recv(1024).decode()
+
+    if not data or data.lower() == "exit":
+        print("Server disconnected")
+        break
+
+    print("Server:", data)
+
+    msg = input("Client: ")
+
+    s.send(msg.encode())
+
+    if msg.lower() == "exit":
+        break
+
+s.close()
+
+
+```
+
+
+##output:
+
+server:
+
+<img width="595" height="436" alt="Screenshot 2026-11-25 100814" src="https://github.com/user-attachments/assets/a3d37254-5ded-43f9-b480-030494654cd7" />
+
+
+client:
+
+
+
+<img width="585" height="412" alt="Screenshot 2026-11-25 100825" src="https://github.com/user-attachments/assets/ff849e33-1394-4cff-aec0-e41ec8349e06" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Result:
 
 Thus the study on Client Server Chat Applications has been performed
